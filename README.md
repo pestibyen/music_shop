@@ -9,5 +9,9 @@ This is the source code repository for the online shop "All Music Stuff". It is 
 * Intuitive Web Design
 * и т.д.
 
+## Specifications:
+* Django
+* PostgreSQL
+
 ## Contacts
 For further questions please contact <pestibyen@gmail.com>
