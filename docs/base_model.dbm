@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.0-beta1" last-position="0,0" last-zoom="0.55"
+<dbmodel pgmodeler-ver="0.9.0-beta1" last-position="0,0" last-zoom="1.05"
 	 default-schema="public" default-owner="postgres">
 <database name="new_database">
 </database>
@@ -11,9 +11,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <schema name="public" fill-color="#e1e1e1" sql-disabled="true">
 </schema>
 
-<table name="products">
+<table name="products" hide-ext-attribs="true">
 	<schema name="public"/>
-	<position x="120" y="20"/>
+	<position x="80" y="20"/>
 	<column name="ProductID" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -45,7 +45,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</customidxs>
 </table>
 
-<table name="client">
+<table name="client" hide-ext-attribs="true">
 	<schema name="public"/>
 	<position x="500" y="300"/>
 	<column name="ClientID" not-null="true">
@@ -77,9 +77,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="orders">
+<table name="orders" hide-ext-attribs="true">
 	<schema name="public"/>
-	<position x="400" y="720"/>
+	<position x="340" y="760"/>
 	<column name="OrderID" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -143,16 +143,22 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-table="public.client"
 	 dst-table="public.orders"
 	 src-required="false" dst-required="false">
+	<label ref-type="dst-label">
+		<position x="8.85932" y="3.3"/>
+	</label>
 	<label ref-type="name-label">
 		<position x="0" y="0"/>
 	</label>
 </relationship>
 
-<table name="order_item">
+<table name="order_item" hide-ext-attribs="true">
 	<schema name="public"/>
-	<position x="100" y="480"/>
+	<position x="120" y="420"/>
 	<column name="OrderItemID" not-null="true">
 		<type name="serial" length="0"/>
+	</column>
+	<column name="quantity" not-null="true">
+		<type name="integer" length="0"/>
 	</column>
 	<constraint name="order_item_pk" type="pk-constr" table="public.order_item">
 		<columns names="OrderItemID" ref-type="src-columns"/>
@@ -160,10 +166,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 	<customidxs object-type="column">
 		<object name="OrderID_orders" index="0"/>
+		<object name="ProductID_products" index="2"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
+		<object name="order_item_uq" index="3"/>
 		<object name="orders_fk" index="0"/>
+		<object name="products_fk" index="2"/>
 	</customidxs>
 </table>
 
@@ -174,22 +183,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#aaddce"
 	 src-table="public.orders"
 	 dst-table="public.order_item"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="products_has_one_order_item" type="rel11"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#e5e2d7"
-	 src-table="public.order_item"
-	 dst-table="public.products"
 	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="93.8697" y="3.0349"/>
+	<label ref-type="src-label">
+		<position x="-11.1407" y="-21.7"/>
 	</label>
 </relationship>
 
-<table name="news">
+<table name="news" hide-ext-attribs="true">
 	<schema name="public"/>
 	<position x="80" y="740"/>
 	<column name="NewsID" not-null="true">
@@ -205,5 +205,18 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<columns names="NewsID" ref-type="src-columns"/>
 	</constraint>
 </table>
+
+<relationship name="order_item_has_one_products" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#9ddbb8"
+	 src-table="public.products"
+	 dst-table="public.order_item"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="103.87" y="-1.9651"/>
+	</label>
+</relationship>
 
 </dbmodel>
