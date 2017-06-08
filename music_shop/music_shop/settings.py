@@ -77,9 +77,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'music_shop_db',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',
+        'USER': 'django_admin',
+        'PASSWORD': 'qzpm123a',
+        'HOST': 'andrejch.by',
         'PORT': '5432'
     }
 }
