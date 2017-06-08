@@ -84,7 +84,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="serial" length="0"/>
 	</column>
 	<column name="OrderDate" not-null="true">
-		<type name="date" length="0"/>
+		<type name="timestamp" length="0"/>
 	</column>
 	<column name="OrderCost" not-null="true">
 		<type name="money" length="0"/>
@@ -196,7 +196,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="serial" length="0"/>
 	</column>
 	<column name="NewsDate" not-null="true">
-		<type name="date" length="0"/>
+		<type name="timestamp" length="0"/>
 	</column>
 	<column name="NewsText">
 		<type name="text" length="0"/>
@@ -214,6 +214,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-table="public.products"
 	 dst-table="public.order_item"
 	 src-required="true" dst-required="false">
+	<label ref-type="src-label">
+		<position x="-7.41" y="-21.7"/>
+	</label>
+	<label ref-type="dst-label">
+		<position x="-7.41" y="8.3"/>
+	</label>
 	<label ref-type="name-label">
 		<position x="103.87" y="-1.9651"/>
 	</label>
