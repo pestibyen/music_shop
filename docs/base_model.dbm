@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.0-beta1" last-position="0,0" last-zoom="1.05"
+	 default-schema="public" default-owner="postgres">
+<database name="new_database">
+</database>
+
+<schema name="public" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="products" hide-ext-attribs="true">
+	<schema name="public"/>
+	<position x="60" y="0"/>
+	<column name="ProductID" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Name" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="Manufacturer">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="Price">
+		<type name="numeric" length="5" precision="2"/>
+	</column>
+	<column name="Photo">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="Description">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="product_pk" type="pk-constr" table="public.products">
+		<columns names="ProductID" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="SubcategoryID_subcategory" index="6"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="subcategory_fk" index="1"/>
+	</customidxs>
+</table>
+
+<table name="client" hide-ext-attribs="true">
+	<schema name="public"/>
+	<position x="480" y="420"/>
+	<column name="ClientID" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="FirstName">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="LastName">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="UserName" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="Password" not-null="true">
+		<type name="varchar" length="64"/>
+	</column>
+	<column name="Email">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="Phone">
+		<type name="varchar" length="12"/>
+	</column>
+	<column name="Adress">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="client_pk" type="pk-constr" table="public.client">
+		<columns names="ClientID" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="orders" hide-ext-attribs="true">
+	<schema name="public"/>
+	<position x="400" y="800"/>
+	<column name="OrderID" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="OrderDate" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="OrderCost" not-null="true">
+		<type name="money" length="0"/>
+	</column>
+	<constraint name="Order_pk" type="pk-constr" table="public.orders">
+		<columns names="OrderID" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="ClientID_client" index="1"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="client_fk" index="1"/>
+	</customidxs>
+</table>
+
+<table name="categories" hide-ext-attribs="true">
+	<schema name="public"/>
+	<position x="560" y="20"/>
+	<column name="CategoryID" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="CategoryName" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="Description">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="categories_pk" type="pk-constr" table="public.categories">
+		<columns names="CategoryID" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="client_has_many_orders" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#b3ee5d"
+	 src-table="public.client"
+	 dst-table="public.orders"
+	 src-required="false" dst-required="false">
+	<label ref-type="dst-label">
+		<position x="8.85932" y="3.3"/>
+	</label>
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<table name="order_item" hide-ext-attribs="true">
+	<schema name="public"/>
+	<position x="120" y="540"/>
+	<column name="OrderItemID" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="quantity" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="order_item_pk" type="pk-constr" table="public.order_item">
+		<columns names="OrderItemID" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="OrderID_orders" index="0"/>
+		<object name="ProductID_products" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="order_item_uq" index="3"/>
+		<object name="orders_fk" index="0"/>
+		<object name="products_fk" index="2"/>
+	</customidxs>
+</table>
+
+<relationship name="orders_has_many_order_item" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#aaddce"
+	 src-table="public.orders"
+	 dst-table="public.order_item"
+	 src-required="false" dst-required="false">
+	<label ref-type="src-label">
+		<position x="-11.1407" y="-21.7"/>
+	</label>
+</relationship>
+
+<table name="news" hide-ext-attribs="true">
+	<schema name="public"/>
+	<position x="100" y="680"/>
+	<column name="NewsID" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="NewsDate" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="NewsText">
+		<type name="text" length="0"/>
+	</column>
+	<column name="NewsHeader">
+		<type name="varchar" length="30"/>
+	</column>
+	<constraint name="news_pk" type="pk-constr" table="public.news">
+		<columns names="NewsID" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="order_item_has_one_products" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#9ddbb8"
+	 src-table="public.products"
+	 dst-table="public.order_item"
+	 src-required="true" dst-required="false">
+	<label ref-type="src-label">
+		<position x="-7.41" y="-21.7"/>
+	</label>
+	<label ref-type="dst-label">
+		<position x="-7.41" y="8.3"/>
+	</label>
+	<label ref-type="name-label">
+		<position x="33.8697" y="-71.9651"/>
+	</label>
+</relationship>
+
+<table name="subcategory">
+	<schema name="public"/>
+	<position x="140" y="340"/>
+	<column name="SubcategoryID" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="SubcategoryName">
+		<type name="varchar" length="30"/>
+	</column>
+	<constraint name="subcategory_pk" type="pk-constr" table="public.subcategory">
+		<columns names="SubcategoryID" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="CategoryID_categories" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="categories_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="categories_has_many_subcategory" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#59f20f"
+	 src-table="public.categories"
+	 dst-table="public.subcategory"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="115.991" y="-41.9651"/>
+	</label>
+</relationship>
+
+<relationship name="subcategory_has_many_products" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#093815"
+	 src-table="public.subcategory"
+	 dst-table="public.products"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-113.95" y="-1.9651"/>
+	</label>
+</relationship>
+
+<table name="order_status">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="40" y="880"/>
+	<column name="ID" not-null="true">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="StatusName">
+		<type name="varchar" length="15"/>
+	</column>
+	<constraint name="order_status_pk" type="pk-constr" table="public.order_status">
+		<columns names="ID" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="order_status_has_many_orders" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#7e58b9"
+	 src-table="public.order_status"
+	 dst-table="public.orders"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="77.2021" y="3.0349"/>
+	</label>
+</relationship>
+
+</dbmodel>
