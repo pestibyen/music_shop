@@ -161,3 +161,6 @@ fabric.properties
 
 ### Vim ###
 *.swp
+
+### Django project ###
+local_settings.py
