@@ -2,30 +2,27 @@ from django.db import models
 
 
 class Category(models.Model):
-    category_id = models.AutoField(primary_key=True)
-    category_name = models.CharField(max_length=30, default='none')
-    description = models.TextField(default='none')
+    name = models.CharField(max_length=30, default='')
+    description = models.TextField(default='', blank=True)
 
     def __str__(self):
-        return self.category_name
+        return self.name
 
 
 class SubCategory(models.Model):
-    subcategory_id = models.AutoField(primary_key=True)
-    subcategory_name = models.CharField(max_length=30, default='none')
+    name = models.CharField(max_length=30, default='')
     category_id = models.ForeignKey(Category)
 
     def __str__(self):
-        return self.subcategory_name
+        return self.name
 
 
 class Product(models.Model):
-    product_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=50, default='noname')
-    manufacturer = models.CharField(max_length=40, default='noname')
+    name = models.CharField(max_length=50, default='')
+    manufacturer = models.CharField(max_length=40, default='', blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     photo = models.CharField(max_length=255, default='none')
-    description = models.TextField(default='none')
+    description = models.TextField(default='', blank=True)
     subcategory_id = models.ForeignKey(SubCategory)
 
     def __str__(self):
@@ -33,56 +30,56 @@ class Product(models.Model):
 
 
 class Client(models.Model):
-    client_id = models.AutoField(primary_key=True)
-    firstname = models.CharField(max_length=20, default='none')
-    lastname = models.CharField(max_length=30, default='none')
-    username = models.CharField(max_length=20, default='none')  # будет обязательным
+    firstname = models.CharField(max_length=20, default='')
+    lastname = models.CharField(max_length=30, default='')
+    username = models.CharField(max_length=20, default='')  # будет обязательным
     password = models.CharField(max_length=20)  # Надо узнать как сделать шифрование пароля, чтоб не хранить его в базе в явном виде
     email = models.EmailField(max_length=30)
-    phone = models.CharField(max_length=13, default='none')
-    address = models.TextField(default='none')
+    phone = models.CharField(max_length=13, default='', blank=True)
+    address = models.TextField(max_length=300, default='', blank=True)
 
     def __str__(self):
         return self.username
 
 
 class Order(models.Model):
-    order_id = models.AutoField(primary_key=True)
-    orderdate = models.DateTimeField()
-    ordercost = models.DecimalField(max_digits=8, decimal_places=2)
     client_id = models.ForeignKey(Client)
+    orderdate = models.DateTimeField()
 
-    order_open = 'order_open'
-    order_done = 'order_done'
-    order_canceled = 'order_canceled'
+    ORDER_OPEN = 'Open'
+    ORDER_DONE = 'Done'
+    ORDER_CANCELED = 'Canceled'
 
     options = (
-        (order_open, 'Open'),
-        (order_done, 'Done'),
-        (order_canceled, 'Canceled'),
+        (ORDER_OPEN, 'Open'),
+        (ORDER_DONE, 'Done'),
+        (ORDER_CANCELED, 'Canceled'),
     )
-    status = models.CharField(max_length=14,
-                              choices=options,
-                              default=order_open)
+    status = models.CharField(max_length=14, choices=options,
+                              default=ORDER_OPEN)
+
+    ordercost = models.DecimalField(max_digits=8, decimal_places=2,
+                                    default=0)  # , editable=False
 
     def __str__(self):
-        return self.order_id
+        if self.status == 'Open':
+            return '{0.id}: {0.status}'.format(self)
+        else:
+            return '{0.id}: {0.status} = {0.ordercost}'.format(self)
 
 
 class OrderItem(models.Model):
-    orderitem_id = models.AutoField(primary_key=True)
     order_id = models.ForeignKey(Order)
     product_id = models.ForeignKey(Product)
     quantity = models.SmallIntegerField()
 
     def __str__(self):
-        return self.orderitem_id
+        return '{0.id}: {1.name} x {2.quantity}'.format(self.order_id, self.product_id, self)
 
 
-class News(models.Model):
-    news_id = models.AutoField(primary_key=True)
+class New(models.Model):
     newsheader = models.CharField(max_length=30)
-    newstext = models.TextField(default='none')
+    newstext = models.TextField(default='')
     newsdate = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

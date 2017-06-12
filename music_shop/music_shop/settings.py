@@ -76,24 +76,14 @@ WSGI_APPLICATION = 'music_shop.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'music_shop',
-        'USER': 'admin',
-        'PASSWORD': '1qaz2wsx',
-        'HOST': 'localhost',  # 'andrejch.by',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'music_shop_db',
+        'USER': 'django_admin',
+        'PASSWORD': 'qzpm123a',
+        'HOST': 'andrejch.by',
         'PORT': '5432'
     }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'music_shop_db',
-#         'USER': 'django_admin',
-#         'PASSWORD': 'qzpm123a',
-#         'HOST': 'andrejch.by',
-#         'PORT': '5432'
-#     }
-# }
 
 
 # Password validation
@@ -134,6 +124,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 try:
     from .local_settings import *
