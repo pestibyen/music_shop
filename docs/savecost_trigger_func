@@ -4,8 +4,8 @@ DECLARE
     i integer := 1;
     result NUMERIC(8,2) := 0;
 BEGIN
-    q := ARRAY(SELECT shop_orderitem.quantity FROM shop_orderitem WHERE shop_orderitem.order_id_id = NEW.id);
-    p := ARRAY(SELECT shop_product.price FROM shop_product JOIN shop_orderitem ON shop_orderitem.order_id_id = NEW.id WHERE shop_product.id = shop_orderitem.product_id_id AND shop_orderitem.order_id_id = NEW.id);
+    q := ARRAY(SELECT shop_orderitem.quantity FROM shop_orderitem WHERE shop_orderitem.order_id = NEW.id);
+    p := ARRAY(SELECT shop_product.price FROM shop_product JOIN shop_orderitem ON shop_orderitem.order_id = NEW.id WHERE shop_product.id = shop_orderitem.product_id AND shop_orderitem.order_id = NEW.id);
     LOOP
         result := q[i] * p[i] + result;
         EXIT WHEN i = array_length(p, 1);
