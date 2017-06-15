@@ -29,7 +29,7 @@ class Product(models.Model):
     name = models.CharField(max_length=50, default='')
     manufacturer = models.CharField(max_length=40, default='', blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
-    photo = models.CommaSeparatedIntegerField(max_length=500, blank=True)  # список фоток конкретного продукта, т.е.: список id из таблицы Photo
+    photo = models.CommaSeparatedIntegerField(max_length=300, blank=True)  # список фоток конкретного продукта, т.е.: список id из таблицы Photo
     description = models.TextField(default='', blank=True)
     subcategory = models.ForeignKey(SubCategory)
 
@@ -40,9 +40,10 @@ class Product(models.Model):
 class Address(models.Model):
     '''
         Сюда попадает адрес из формы (регистрации или доставки) и получает id.
-        Этот id сразу же добавляется в Client.addresslist (пока не реализовано)
+        Этот id сразу же добавляется в Client.addresslist (реализовано для
+        регистрации в представлении registration, для доставки - не реализовано)
     '''
-    address = models.CharField(max_length=300, default='', blank=True)
+    address = models.CharField(max_length=300, default='', blank=True, unique=True)
 
     def __str__(self):
         if len(str(self.address)) > 13:
@@ -62,7 +63,7 @@ class Client(models.Model):
     email = models.EmailField(max_length=40)
     phone = models.CharField(help_text='+375xxxxxxxxx',
                              max_length=13, default='', blank=True)
-    addresslist = models.CommaSeparatedIntegerField(max_length=500, blank=True)  # список адресов юзера, т.е.: список id из таблицы Address
+    addresslist = models.CommaSeparatedIntegerField(max_length=300, blank=True)  # список адресов юзера, т.е.: список id из таблицы Address
 
     def __str__(self):
         return self.username
