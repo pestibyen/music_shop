@@ -19,7 +19,7 @@ class SubCategory(models.Model):
 
 class Photo(models.Model):
     filename = models.CharField(help_text='Use the following format: image002.jpg or gitars/gitara042.png',
-                             max_length=200, default='none')  # относительный путь и файл фотки или none если фотки нет
+                             max_length=200, unique=True)  # относительный путь и файл фотки или none если фотки нет
 
     def __str__(self):
         return self.filename
