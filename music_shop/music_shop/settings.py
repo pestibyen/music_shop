@@ -74,16 +74,16 @@ WSGI_APPLICATION = 'music_shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'music_shop_db',
-        'USER': 'django_admin',
-        'PASSWORD': 'qzpm123a',
-        'HOST': 'andrejch.by',
-        'PORT': '5432'
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'music_shop_db',
+#         'USER': 'django_admin',
+#         'PASSWORD': 'qzpm123a',
+#         'HOST': 'andrejch.by',
+#         'PORT': '5432'
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -109,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -126,8 +126,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'shop/static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'shop/media')
 
-
 try:
     from .local_settings import *
 except ImportError:
     print("Can't import local_settings")
+
+AUTH_USER_MODEL = 'shop.Client'

@@ -1,4 +1,6 @@
 from django.db import models
+from django.core import validators
+from django.contrib.auth.models import AbstractUser
 
 
 class Category(models.Model):
@@ -29,7 +31,8 @@ class Product(models.Model):
     name = models.CharField(max_length=50, default='')
     manufacturer = models.CharField(max_length=40, default='', blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
-    photo = models.CharField(max_length=300, blank=True)  # список фоток конкретного продукта, т.е.: список id из таблицы Photo
+    photo = models.CharField(validators=[validators.int_list_validator(sep=',')],
+                             max_length=300, blank=True)  # список фоток конкретного продукта, т.е.: список id из таблицы Photo
     description = models.TextField(default='', blank=True)
     subcategory = models.ForeignKey(SubCategory)
 
@@ -52,21 +55,12 @@ class Address(models.Model):
             return self.address
 
 
-class Client(models.Model):
-    firstname = models.CharField(help_text='Letters only, max length = 20',
-                                 max_length=20, default='')
-    lastname = models.CharField(help_text='Letters only, max length = 30',
-                                max_length=30, default='')
-    username = models.CharField(help_text='Only letters, numbers, underscores or hyphens, max length = 20',
-                                max_length=20, default='')
-    password = models.CharField(max_length=20)
-    email = models.EmailField(max_length=40)
-    phone = models.CharField(help_text='+375xxxxxxxxx',
+class Client(AbstractUser):
+    phone = models.CharField(validators=[validators.RegexValidator(regex='\+[0-9]{12}')],
+                             help_text='+375xxxxxxxxx',
                              max_length=13, default='', blank=True)
-    addresslist = models.CharField(max_length=300, blank=True)  # список адресов юзера, т.е.: список id из таблицы Address
-
-    def __str__(self):
-        return self.username
+    addresslist = models.CharField(validators=[validators.int_list_validator(sep=',')],
+                                    verbose_name='Address', max_length=300, blank=True)
 
 
 class Order(models.Model):

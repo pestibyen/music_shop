@@ -11,13 +11,17 @@ def registration(request):
             f1 = form.cleaned_data['firstname']
             f2 = form.cleaned_data['lastname']
             f3 = form.cleaned_data['username']
+
+            # должна быть проверка: существует ли уже такой юзер в базе
+
             f4 = form.cleaned_data['password']
             f5 = form.cleaned_data['email']
             f6 = form.cleaned_data['phone']
             f7 = form.cleaned_data['address']
             f7_db, created = Address.objects.get_or_create(address=f7)
-            f7_db_id = Address.objects.values('id').filter(address=f7_db)[0]['id']
-            Client.objects.create(firstname=f1, lastname=f2,
+            x = Address.objects.values('id').filter(address=f7_db)
+            f7_db_id = x[0]['id']
+            Client.objects.create(first_name=f1, last_name=f2,
                                   username=f3, password=f4,
                                   email=f5, phone=f6,
                                   addresslist=str(f7_db_id))
@@ -51,7 +55,8 @@ def addproduct(request):
             photo_list_id = list()
             for i in range(0, len(photo_list)):
                 f6_db, created = Photo.objects.get_or_create(filename=photo_list[i])
-                f6_db_id = Photo.objects.values('id').filter(filename=f6_db)[0]['id']
+                x = Photo.objects.values('id').filter(filename=f6_db)
+                f6_db_id = x[0]['id']
                 photo_list_id.append(str(f6_db_id))
 
             photo_str_id = ','.join(photo_list_id)
