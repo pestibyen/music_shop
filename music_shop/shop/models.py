@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=30, default='')
+    name = models.CharField(max_length=30, unique=True)
     description = models.TextField(default='', blank=True)
 
     def __str__(self):
@@ -10,7 +10,7 @@ class Category(models.Model):
 
 
 class SubCategory(models.Model):
-    name = models.CharField(max_length=30, default='')
+    name = models.CharField(max_length=30, unique=True)
     category = models.ForeignKey(Category)
 
     def __str__(self):
@@ -19,7 +19,7 @@ class SubCategory(models.Model):
 
 class Photo(models.Model):
     filename = models.CharField(help_text='Use the following format: image002.jpg or gitars/gitara042.png',
-                             max_length=200, unique=True)  # относительный путь и файл фотки или none если фотки нет
+                             max_length=200, unique=True)
 
     def __str__(self):
         return self.filename
@@ -29,7 +29,7 @@ class Product(models.Model):
     name = models.CharField(max_length=50, default='')
     manufacturer = models.CharField(max_length=40, default='', blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
-    photo = models.CommaSeparatedIntegerField(max_length=300, blank=True)  # список фоток конкретного продукта, т.е.: список id из таблицы Photo
+    photo = models.CharField(max_length=300, blank=True)  # список фоток конкретного продукта, т.е.: список id из таблицы Photo
     description = models.TextField(default='', blank=True)
     subcategory = models.ForeignKey(SubCategory)
 
@@ -63,7 +63,7 @@ class Client(models.Model):
     email = models.EmailField(max_length=40)
     phone = models.CharField(help_text='+375xxxxxxxxx',
                              max_length=13, default='', blank=True)
-    addresslist = models.CommaSeparatedIntegerField(max_length=300, blank=True)  # список адресов юзера, т.е.: список id из таблицы Address
+    addresslist = models.CharField(max_length=300, blank=True)  # список адресов юзера, т.е.: список id из таблицы Address
 
     def __str__(self):
         return self.username
