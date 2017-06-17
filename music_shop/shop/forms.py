@@ -15,19 +15,20 @@ class RegistrationForm(forms.Form):
     firstname = forms.CharField(label='Your name', max_length=20, required=False,
                                 help_text='Только буквы, от 1 до 20 символов',
                                 validators=[validators.RegexValidator(
-                                    regex='^[а-яА-ЯёЁa-zA-Z]{1,20}$')])
+                                    regex='^[а-яА-ЯёЁa-zA-Z]+$')])
 
     lastname = forms.CharField(label='Last name', max_length=30, required=False,
                                help_text='Только буквы, от 1 до 30 символов',
                                validators=[validators.RegexValidator(
-                                   regex='^[а-яА-ЯёЁa-zA-Z-]{1,30}$')])
+                                   regex='^[а-яА-ЯёЁa-zA-Z-]+$')])
 
     username = forms.CharField(label='User name', max_length=20,
-                               help_text='Буквы, цифры, дефисы и подчёркивания, от 3 до 20 символов',
-                               validators=[validators.RegexValidator(regex='^[A-Za-z0-9_-]{3,20}$'), validate_username])
+                               help_text='Латинские буквы, цифры, дефисы и подчёркивания, от 3 до 20 символов',
+                               validators=[validators.RegexValidator(
+                                   regex='^[A-Za-z0-9_-]{3,20}$'), validate_username])
 
     password = forms.CharField(label='Password', max_length=20,
-                               help_text='Строчные и прописные латинские буквы, цифры, дефисы и подчёркивания, от 5 до 20 символов',
+                               help_text='Латинские буквы, цифры, дефисы и подчёркивания, от 5 до 20 символов',
                                validators=[validators.RegexValidator(
                                    regex='^[A-Za-z0-9_-]{5,20}$')])
 
@@ -38,7 +39,9 @@ class RegistrationForm(forms.Form):
                             validators=[validators.RegexValidator(
                                 regex='^\+[0-9]{12}$')])
 
-    address = forms.CharField(label='Address', max_length=300, required=False)
+    address = forms.CharField(label='Address', max_length=300, required=False,
+                            validators=[validators.RegexValidator(
+                                regex='^[A-Za-zа-яёЁА-Я0-9-,\.\s]+$')])
 
 
 class AddingProductForm(forms.Form):
@@ -48,7 +51,7 @@ class AddingProductForm(forms.Form):
     subcategory = forms.ModelChoiceField(queryset=SubCategory.objects.all())
     description = forms.CharField(max_length=1000, required=False)
 
-    FORMATS = '\.jpg|\.jpeg|.png|\.gif'
+    FORMATS = '\.jpg|\.jpeg|\.png|\.gif'
     photo1 = forms.FilePathField(path=settings.MEDIA_ROOT, recursive=True,
                                  match=FORMATS)
     photo2 = forms.FilePathField(path=settings.MEDIA_ROOT, recursive=True,
