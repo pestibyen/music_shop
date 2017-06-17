@@ -56,7 +56,7 @@ class Address(models.Model):
 
 
 class Client(AbstractUser):
-    phone = models.CharField(validators=[validators.RegexValidator(regex='\+[0-9]{12}')],
+    phone = models.CharField(validators=[validators.RegexValidator(regex='^\+[0-9]{12}$')],
                              help_text='+375xxxxxxxxx',
                              max_length=13, default='', blank=True)
     addresslist = models.CharField(validators=[validators.int_list_validator(sep=',')],

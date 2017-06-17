@@ -11,9 +11,6 @@ def registration(request):
             f1 = form.cleaned_data['firstname']
             f2 = form.cleaned_data['lastname']
             f3 = form.cleaned_data['username']
-
-            # должна быть проверка: существует ли уже такой юзер в базе
-
             f4 = form.cleaned_data['password']
             f5 = form.cleaned_data['email']
             f6 = form.cleaned_data['phone']
@@ -57,6 +54,7 @@ def addproduct(request):
 
             for i in (p5, p4, p3, p2, p1):
                 if i and i not in photo_list:
+                    #  коррекция пути
                     photo_list.append(i)
 
             photo_list_id = list()
