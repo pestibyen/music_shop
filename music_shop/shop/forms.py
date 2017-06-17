@@ -12,16 +12,6 @@ def validate_username(value):
 
 
 class RegistrationForm(forms.Form):
-    firstname = forms.CharField(label='Your name', max_length=20, required=False,
-                                help_text='Только буквы, от 1 до 20 символов',
-                                validators=[validators.RegexValidator(
-                                    regex='^[а-яА-ЯёЁa-zA-Z]+$')])
-
-    lastname = forms.CharField(label='Last name', max_length=30, required=False,
-                               help_text='Только буквы, от 1 до 30 символов',
-                               validators=[validators.RegexValidator(
-                                   regex='^[а-яА-ЯёЁa-zA-Z-]+$')])
-
     username = forms.CharField(label='User name', max_length=20,
                                help_text='Латинские буквы, цифры, дефисы и подчёркивания, от 3 до 20 символов',
                                validators=[validators.RegexValidator(
@@ -32,6 +22,16 @@ class RegistrationForm(forms.Form):
                                validators=[validators.RegexValidator(
                                    regex='^[A-Za-z0-9_-]{5,20}$')])
 
+    firstname = forms.CharField(label='Your name', max_length=20, required=False,
+                                help_text='Только буквы, до 20 символов',
+                                validators=[validators.RegexValidator(
+                                    regex='^[а-яА-ЯёЁa-zA-Z]{0,20}$')])
+
+    lastname = forms.CharField(label='Last name', max_length=30, required=False,
+                               help_text='Только буквы, до 30 символов',
+                               validators=[validators.RegexValidator(
+                                   regex='^[а-яА-ЯёЁa-zA-Z-]{0,30}$')])
+
     email = forms.EmailField(label='E-mail', max_length=40, required=False)
 
     phone = forms.CharField(label='Phone', max_length=13, required=False,
@@ -40,8 +40,9 @@ class RegistrationForm(forms.Form):
                                 regex='^\+[0-9]{12}$')])
 
     address = forms.CharField(label='Address', max_length=300, required=False,
-                            validators=[validators.RegexValidator(
-                                regex='^[A-Za-zа-яёЁА-Я0-9-,\.\s]+$')])
+                              help_text='Буквы, цифры, дефисы, пробелы, точки и запятые.',
+                              validators=[validators.RegexValidator(
+                                  regex='^[A-Za-zа-яёЁА-Я0-9,\.\s-]*$')])
 
 
 class AddingProductForm(forms.Form):
