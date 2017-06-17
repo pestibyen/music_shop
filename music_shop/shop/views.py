@@ -18,9 +18,16 @@ def registration(request):
             f5 = form.cleaned_data['email']
             f6 = form.cleaned_data['phone']
             f7 = form.cleaned_data['address']
-            f7_db, created = Address.objects.get_or_create(address=f7)
-            x = Address.objects.values('id').filter(address=f7_db)
-            f7_db_id = x[0]['id']
+
+            if f7:
+                f7_db, created = Address.objects.get_or_create(address=f7)
+                if created:
+                    f7_db_id = Address.objects.values('id').filter(address=f7)[0]['id']
+                else:
+                    f7_db_id = Address.objects.values('id').filter(address=f7_db)[0]['id']
+            else:
+                f7_db_id = ''
+
             Client.objects.create(first_name=f1, last_name=f2,
                                   username=f3, password=f4,
                                   email=f5, phone=f6,

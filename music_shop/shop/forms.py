@@ -13,7 +13,7 @@ class RegistrationForm(forms.Form):
     lastname = forms.CharField(label='Last name', max_length=30, required=False,
                                help_text='Только буквы, от 1 до 30 символов',
                                validators=[validators.RegexValidator(
-                                   regex='[а-яА-ЯёЁa-zA-Z]{1,30}')])
+                                   regex='[а-яА-ЯёЁa-zA-Z-]{1,30}')])
 
     username = forms.CharField(label='User name', max_length=20,
                                help_text='Буквы, цифры, дефисы и подчёркивания, от 3 до 20 символов',
