@@ -42,9 +42,8 @@ class Product(models.Model):
 
 class Address(models.Model):
     '''
-        Сюда попадает адрес из формы (регистрации или доставки) и получает id.
-        Этот id сразу же добавляется в Client.addresslist (реализовано для
-        регистрации в представлении registration, для доставки - не реализовано)
+        Сюда попадает адрес из формы оформления заказа и получает id.
+        Этот id сразу же добавляется в Client.addresslist
     '''
     address = models.CharField(max_length=300, default='', blank=True, unique=True)
 

@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>Adding new product</title>
 </head>
 <body>
-    <h2>Регистрация</h2>
+    <h2>Добавление нового товара в базу данных</h2>
     <form action="" method="post">{% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Зарегистрироваться" />
+        <input type="submit" value="Добавить" />
     </form>
 </body>
 </html>
