@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'c%)wi9q194b@+#j5op$$f##8(ep4r_yp9yxf(2*awjw6^=2tlx'
+SECRET_KEY = 'sx&dz#h5lhun392hcqit#m5e8!=@qb3_a=!1n@h65kxd6yl+kl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -74,16 +74,29 @@ WSGI_APPLICATION = 'music_shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'music_shop_db',
-#         'USER': 'django_admin',
-#         'PASSWORD': 'qzpm123a',
-#         'HOST': 'andrejch.by',
-#         'PORT': '5432'
-#     }
-# }
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'music_shop_db',
+            'USER': 'admin',
+            'PASSWORD': '1qaz2wsx',
+            'HOST': 'localhost',
+            'PORT': '5432'
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'music_shop_db',
+            'USER': 'django_admin',
+            'PASSWORD': 'qzpm123a',
+            'HOST': 'andrejch.by',
+            'PORT': '5432'
+        }
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -125,10 +138,3 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'shop/static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'shop/media')
-
-try:
-    from .local_settings import *
-except ImportError:
-    print("Can't import local_settings")
-
-AUTH_USER_MODEL = 'shop.Client'

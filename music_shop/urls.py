@@ -16,10 +16,8 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-# from shop.views import HomeView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('shop.urls')),
-    # url(r'^$', HomeView.as_view(), name='home'),
 ]

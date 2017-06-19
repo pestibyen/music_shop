@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
-
+from django.views.generic.base import View
 from .forms import RegistrationForm, AddingProductForm
-from .models import Client, Photo, Product
+from django.contrib.auth import login, logout
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
+from django.http import HttpResponseRedirect
+from .models import Photo, Product
 
 
 class IndexView(TemplateView):
@@ -15,22 +19,41 @@ class IndexView(TemplateView):
 
 
 class Registration(FormView):
-    template_name = 'registration.html'
+    template_name = 'users/registration.html'
     form_class = RegistrationForm
-    success_url = '/thanks/'
+    success_url = '/success/'
 
     def form_valid(self, form):
-        f1 = form.cleaned_data['firstname']
-        f3 = form.cleaned_data['username']
-        f4 = form.cleaned_data['password']
-        Client.objects.create(first_name=f1, username=f3, password=f4, email=f3)
+        new_user = User.objects.create_user(**form.cleaned_data)
+        login(self.request, new_user)
         return super(Registration, self).form_valid(form)
 
 
+class LoginFormView(FormView):
+    form_class = AuthenticationForm
+    template_name = 'users/login.html'
+    success_url = '/success/'
+
+    def form_valid(self, form):
+        self.user = form.get_user()
+        login(self.request, self.user)
+        return super(LoginFormView, self).form_valid(form)
+
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return HttpResponseRedirect('/')
+
+
+def success(request):
+    return render(request, 'users/success.html')
+
+
 class Addproduct(FormView):
-    template_name = 'addproduct.html'
+    template_name = 'staff/addproduct.html'
     form_class = AddingProductForm
-    success_url = '/thanks/'
+    success_url = '/success/'
 
     def form_valid(self, form):
         f1 = form.cleaned_data['name']
@@ -64,7 +87,3 @@ class Addproduct(FormView):
                                price=f3, subcategory=f4,
                                description=f5, photo=photo_str_id)
         return super(Addproduct, self).form_valid(form)
-
-
-def thanks(request):
-    return render(request, 'end.html')

@@ -3,9 +3,4 @@ INSERT INTO public.shop_category (id, name, description) VALUES (2, 'УДАРН�
 INSERT INTO public.shop_category (id, name, description) VALUES (3, 'СТРУННЫЕ', 'То, что со трунами.');
 INSERT INTO public.shop_subcategory (id, name, category_id) VALUES (1, 'Гитары', 3);
 INSERT INTO public.shop_subcategory (id, name, category_id) VALUES (2, 'Барабаны', 2);
-INSERT INTO public.shop_subcategory (id, name, category_id) VALUES (3, 'Балалайки', 3);
-INSERT INTO public.shop_subcategory (id, name, category_id) VALUES (4, 'Флейты', 1);
-INSERT INTO public.shop_subcategory (id, name, category_id) VALUES (5, 'Саксафоны', 3);
-INSERT INTO public.shop_new (id, newsheader, newstext, newsdate) VALUES (1, 'Мы открылись!', 'Шутка. Ещё нет.', '2017-06-14 22:03:45.633959');
-INSERT INTO public.shop_new (id, newsheader, newstext, newsdate) VALUES (2, 'Лето будет теплым.', 'Так Ванга предсказала.', '2017-06-14 22:04:13.332790');
-INSERT INTO public.shop_new (id, newsheader, newstext, newsdate) VALUES (3, 'Нужны новые новости!', 'Присылайте нам ваши новости.', '2017-06-14 22:04:38.710583');
+INSERT INTO public.shop_subcategory (id, name, category_id) VALUES (3, 'Флейты', 1);
