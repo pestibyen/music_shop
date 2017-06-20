@@ -4,7 +4,38 @@
     <meta charset="UTF-8">
     <title>Home page</title>
 </head>
+<style>
+  * {
+   box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+  }
+  #main {
+    display: flex;
+    min-height: calc(100vh - 40vh);
+  }
+  #main > article {
+    flex: 1;
+  }
+  #main > nav,
+  #main > aside {
+    flex: 0 0 20vw;
+    background: beige;
+  }
+  #main > nav {
+    order: -1;
+  }
+  header, footer, article, nav, aside {
+    padding: 1em;
+  }
+  header, footer {
+    background: gainsboro;
+    height: 20vh;
+  }
+</style>
 <body>
+  <header>
     <h2>
         {% if request.user.is_authenticated %}
            Привет {{ user.first_name }}
@@ -32,5 +63,11 @@
             <a href="{% url 'addproduct' %}">Добавить товар</a>
         {% endif %}
     </div>
+  </header>
+  <div id="main">
+    <article>News</article>
+    <nav>Categories</nav>
+    <aside>Aside</aside>
+  </div>
+  <footer>Footer</footer>
 </body>
-</html>

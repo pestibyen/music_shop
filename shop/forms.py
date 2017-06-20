@@ -19,7 +19,7 @@ class RegistrationForm(ModelForm):
                                 help_text='Только буквы, от 2 до 20 символов',
                                 validators=[validators.RegexValidator(
                                     regex='^[а-яА-ЯёЁa-zA-Z]{2,20}$',
-                                    message='Введите правильное значение.')])
+                                    message='Введите правильное имя.')])
 
     class Meta:
         model = User
