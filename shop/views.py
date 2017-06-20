@@ -2,10 +2,9 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 from django.views.generic.base import View
-from .forms import RegistrationForm, AddingProductForm
+from .forms import RegistrationForm, AddingProductForm, LoginForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect
 from .models import Photo, Product
 
@@ -31,7 +30,7 @@ class Registration(FormView):
 
 
 class LoginFormView(FormView):
-    form_class = AuthenticationForm
+    form_class = LoginForm
     template_name = 'users/login.html'
     success_url = '/'
 

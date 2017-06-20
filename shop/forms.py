@@ -1,6 +1,7 @@
-from django.forms import ModelForm, CharField, FilePathField, DecimalField, ModelChoiceField
+from django.forms import ModelForm, CharField, FilePathField, DecimalField, ModelChoiceField, PasswordInput
 from django.core.exceptions import NON_FIELD_ERRORS
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import password_validation
 from django.core import validators
 from .models import Product, SubCategory
@@ -12,7 +13,7 @@ class RegistrationForm(ModelForm):
                                validators=[validators.EmailValidator(
                                    message='Введите действительный адрес электронной почты.')])
     password = CharField(label='Пароль', max_length=20,
-                               help_text='От 8 до 20 символов',
+                               help_text='От 8 до 20 символов', widget=PasswordInput,
                                validators=[password_validation.validate_password])
     first_name = CharField(label='Имя', max_length=20, required=True,
                                 help_text='Только буквы, от 2 до 20 символов',
@@ -26,6 +27,15 @@ class RegistrationForm(ModelForm):
         error_messages = {
             NON_FIELD_ERRORS: {'unique_together': "%(model_name)s's %(field_labels)s are not unique.",}
         }
+
+
+class LoginForm(AuthenticationForm):
+    username = CharField(label='Электронная почта', max_length=40)
+    password = CharField(label='Пароль', widget=PasswordInput)
+    error_messages = {
+        'invalid_login': 'Введите правильный адрес электронной почты и пароль.',
+        'inactive': 'This account is inactive.',
+    }
 
 
 class AddingProductForm(ModelForm):
