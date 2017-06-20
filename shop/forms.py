@@ -1,4 +1,4 @@
-from django.forms import ModelForm, CharField, FilePathField, DecimalField, ModelChoiceField
+from django.forms import ModelForm, CharField, FilePathField, DecimalField, ModelChoiceField, TextInput
 from django.core.exceptions import NON_FIELD_ERRORS
 from django.contrib.auth.models import User
 from django.contrib.auth import password_validation
@@ -10,15 +10,18 @@ from django.conf import settings
 class RegistrationForm(ModelForm):
     username = CharField(label='Электронная почта', max_length=40,
                                validators=[validators.EmailValidator(
-                                   message='Введите действительный адрес электронной почты.')])
+                                   message='Введите действительный адрес электронной почты.')],
+                         widget=TextInput(attrs={'class':'form-control', 'placeholder':'E-mail'}))
     password = CharField(label='Пароль', max_length=20,
                                help_text='От 8 до 20 символов',
-                               validators=[password_validation.validate_password])
+                               validators=[password_validation.validate_password],
+                         widget=TextInput(attrs={'class':'form-control', 'placeholder':'Пароль'}))
     first_name = CharField(label='Имя', max_length=20, required=True,
                                 help_text='Только буквы, от 2 до 20 символов',
                                 validators=[validators.RegexValidator(
                                     regex='^[а-яА-ЯёЁa-zA-Z]{2,20}$',
-                                    message='Введите правильное значение.')])
+                                    message='Введите правильное значение.')],
+                           widget=TextInput(attrs={'class':'form-control', 'placeholder':'Имя'}))
 
     class Meta:
         model = User
