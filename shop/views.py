@@ -21,9 +21,10 @@ class IndexView(TemplateView):
 class Registration(FormView):
     template_name = 'users/registration.html'
     form_class = RegistrationForm
-    success_url = '/success/'
+    success_url = '/'
 
     def form_valid(self, form):
+        form.cleaned_data['email'] = form.cleaned_data['username']
         new_user = User.objects.create_user(**form.cleaned_data)
         login(self.request, new_user)
         return super(Registration, self).form_valid(form)
@@ -32,7 +33,7 @@ class Registration(FormView):
 class LoginFormView(FormView):
     form_class = AuthenticationForm
     template_name = 'users/login.html'
-    success_url = '/success/'
+    success_url = '/'
 
     def form_valid(self, form):
         self.user = form.get_user()

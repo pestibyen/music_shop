@@ -16,7 +16,9 @@ class RegistrationForm(ModelForm):
                                validators=[password_validation.validate_password])
     first_name = CharField(label='Имя', max_length=20, required=True,
                                 help_text='Только буквы, от 2 до 20 символов',
-                                validators=[validators.RegexValidator(regex='^[а-яА-ЯёЁa-zA-Z]{2,20}$')])
+                                validators=[validators.RegexValidator(
+                                    regex='^[а-яА-ЯёЁa-zA-Z]{2,20}$',
+                                    message='Введите правильное значение.')])
 
     class Meta:
         model = User

@@ -5,9 +5,32 @@
     <title>Home page</title>
 </head>
 <body>
-    <h2>Главная страница</h2>
-    <a href="{% url 'addproduct' %}">Добавить товар</a>
-    <a href="{% url 'registration' %}">Регистрация</a>
-    <a href="{% url 'login' %}">Войти</a>
+    <h2>
+        {% if request.user.is_authenticated %}
+           Привет {{ user.first_name }}
+        {% else %}
+           Привет гость
+        {% endif %}
+    </h2>
+    <div>
+        {% if request.user.is_authenticated == False %}
+            <a href="{% url 'registration' %}">Регистрация</a>
+        {% endif %}
+    </div>
+    <div>
+        {% if request.user.is_authenticated == False %}
+            <a href="{% url 'login' %}">Войти</a>
+        {% endif %}
+    </div>
+    <div>
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'logout' %}">Выйти</a>
+        {% endif %}
+    </div>
+    <div>
+        {% if request.user.is_authenticated and user.is_staff %}
+            <a href="{% url 'addproduct' %}">Добавить товар</a>
+        {% endif %}
+    </div>
 </body>
 </html>
