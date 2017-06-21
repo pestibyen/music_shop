@@ -1,14 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Registration</title>
+    {% load staticfiles %}
+    <title>All Music Stuff</title>
+    <link href="{%static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{%static 'js/jquery.min.js' %}"></script>
+    <!-- Custom Theme files -->
+    <!--theme-style-->
+    <link href="{%static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <!--//theme-style-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!--fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'><!--//fonts-->
+    <!-- start menu -->
+    <link href="{%static 'css/memenu.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="{%static 'js/memenu.js' %}"></script>
+    <script>$(document).ready(function(){$(".memenu").memenu();});</script>
+    <script src="{%static 'js/simpleCart.min.js' %}"> </script>
 </head>
 <body>
-    <h2>Регистрация</h2>
-    <form action="" method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Зарегистрироваться" />
-    </form>
+<!--header-->
+<div class="header">
+	<div class="header-top">
+		<div class="container">
+			<div class="search">
+					<form>
+						<input type="text" value="найти товар" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+						<input type="submit" value="Искать">
+					</form>
+			</div>
+			<div class="header-left">
+					<ul>
+                        <li >
+                            {% if request.user.is_authenticated and user.is_staff %}
+                                <a href="{% url 'addproduct' %}">Добавить товар</a>
+                            {% endif %}
+                        </li>
+						<li >
+                            {% if request.user.is_authenticated == False %}
+                                <a href="{% url 'login' %}">Войти</a>
+                            {% else %}
+                                <a href="{% url 'logout' %}">Выйти</a>
+                            {% endif %}
+                        </li>
+						<li>
+                            {% if request.user.is_authenticated == False %}
+                                <a href="{% url 'registration' %}">Регистрация</a>
+                            {% else %}
+                                <a>{{ user.first_name }}</a>
+                            {% endif %}
+                        </li>
+					</ul>
+					<div class="cart box_1">
+						<a href="#">
+						<h3> <div class="total">
+							<span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> товаров)</div>
+							<img src="{%static 'images/cart.png' %}" alt=""/></h3>
+						</a>
+						<p><a href="#" class="simpleCart_empty">Корзина пуста</a></p>
+					</div>
+					<div class="clearfix"> </div>
+			</div>
+				<div class="clearfix"> </div>
+		</div>
+		</div>
+		<div class="container">
+			<div class="head-top">
+				<div class="logo">
+					<a href="{% url 'index' %}"><img src="{%static 'images/logo.png' %}" alt=""></a>
+				</div>
+		  <div class=" h_menu4">
+				<ul class="memenu skyblue">
+					<li class="active grid"><a class="color8" href="{% url 'index' %}">Главная</a></li>
+				    <li><a class="color1" href="#">Каталог</a>
+				      	<div class="mepanel">
+						<div class="row">
+							<div class="col6">
+								<div class="h_nav">
+									<ul>
+										<li><a href="#">Гитары</a></li>
+										<li><a href="#">Клавишные инструменты</a></li>
+										<li><a href="#">Ударные инструменты</a></li>
+										<li><a href="#">Духовые инструменты</a></li>
+										<li><a href="#">Смычковые инструменты</a></li>
+										<li><a href="#">Перкуссионные инструменты</a></li>
+										<li><a href="#">Баяны</a></li>
+										<li><a href="#">Микрофоны</a></li>
+										<li><a href="#">DJ оборудование</a></li>
+										<li><a href="#">Стойки</a></li>
+										<li><a href="#">Студия</a></li>
+										<li><a href="#">Звук</a></li>
+										<li><a href="#">Свет</a></li>
+										<li><a href="#">Коммутация</a></li>
+										<li><a href="#">Аксессуары</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						</div>
+					</li>
+					<li><a class="color1" href="#">Меню#3</a></li>
+					<li><a class="color1" href="#">Меню#4</a></li>
+					<li><a class="color1" href="#">Меню#5</a></li>
+			  	</ul>
+			</div>
+				<div class="clearfix"> </div>
+		</div>
+		</div>
+	</div>
+
+    <div class="container">
+        <div class="account">
+            <h2>Введите данные для создания учетной записи</h2>
+            <br>
+             <div class="account-pass">
+                <div class="col-md-8 account-top">
+                    <form action="" method="post">{% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="Создать" />
+                    </form>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+
+<div class="footer">
+				<div class="container">
+			<div class="footer-top-at">
+				<div class="col-md-4 amet-sed">
+				<h4>ИНФОРМАЦИЯ</h4>
+				<ul class="nav-bottom">
+						<li><a href="#">О магазине</a></li>
+						<li><a href="#">FAQ</a></li>
+						<li><a href="#">Карта сайта</a></li>
+						<li><a href="#">Доставка</a></li>
+					</ul>
+				</div>
+				<div class="col-md-4 amet-sed ">
+				<h4>НАШИ КОНТАКТЫ</h4>
+					<p>У нас пока нет офиса,</p>
+					<p>и телефона тоже,</p>
+					<p>но мы работаем над этим.</p>
+					<ul class="social">
+						<li><a href="#"><i> </i></a></li>
+						<li><a href="#"><i class="twitter"> </i></a></li>
+						<li><a href="#"><i class="rss"> </i></a></li>
+						<li><a href="#"><i class="gmail"> </i></a></li>
+					</ul>
+				</div>
+				<div class="col-md-4 amet-sed ">
+				<h4>НАШИ ПАРТНЕРЫ</h4>
+					<p>Скоро появятся</p>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+		<div class="footer-class">
+		<p >© 2017 All Music Stuff All Rights Reserved | Design by  <a href="" target="_blank">Anonymous</a> </p>
+		</div>
+		</div>
 </body>
 </html>

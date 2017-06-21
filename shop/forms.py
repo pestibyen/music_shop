@@ -1,4 +1,4 @@
-from django.forms import ModelForm, CharField, FilePathField, DecimalField, ModelChoiceField, PasswordInput
+from django.forms import ModelForm, CharField, FilePathField, DecimalField, ModelChoiceField, PasswordInput, TextInput
 from django.core.exceptions import NON_FIELD_ERRORS
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
@@ -9,17 +9,23 @@ from django.conf import settings
 
 
 class RegistrationForm(ModelForm):
-    username = CharField(label='Электронная почта', max_length=40,
-                               validators=[validators.EmailValidator(
-                                   message='Введите действительный адрес электронной почты.')])
-    password = CharField(label='Пароль', max_length=20,
-                               help_text='От 8 до 20 символов', widget=PasswordInput,
-                               validators=[password_validation.validate_password])
-    first_name = CharField(label='Имя', max_length=20, required=True,
-                                help_text='Только буквы, от 2 до 20 символов',
-                                validators=[validators.RegexValidator(
-                                    regex='^[а-яА-ЯёЁa-zA-Z]{2,20}$',
-                                    message='Введите правильное имя.')])
+    username = CharField(label='', max_length=40, help_text='До 40 символов',
+                         validators=[validators.EmailValidator(
+                             message='Введите действительный адрес электронной почты.')],
+                         widget=TextInput(
+                             attrs={'class': 'form-control', 'placeholder': 'E-mail'}))
+    password = CharField(label='', max_length=20,
+                         help_text='От 8 до 20 символов',
+                         validators=[password_validation.validate_password],
+                         widget=PasswordInput(
+                             attrs={'class': 'form-control', 'placeholder': 'Пароль'}))
+    first_name = CharField(label='', max_length=20, required=True,
+                           help_text='Только буквы, от 2 до 20 символов',
+                           validators=[validators.RegexValidator(
+                               regex='^[а-яА-ЯёЁa-zA-Z]{2,20}$',
+                               message='Введите правильное имя.')],
+                           widget=TextInput(
+                               attrs={'class': 'form-control', 'placeholder': 'Имя'}))
 
     class Meta:
         model = User
@@ -30,8 +36,10 @@ class RegistrationForm(ModelForm):
 
 
 class LoginForm(AuthenticationForm):
-    username = CharField(label='Электронная почта', max_length=40)
-    password = CharField(label='Пароль', widget=PasswordInput)
+    username = CharField(label='', max_length=40,
+                         widget=TextInput(attrs={'class': 'form-control', 'placeholder': 'E-mail'}))
+    password = CharField(label='',
+                         widget=PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'}))
     error_messages = {
         'invalid_login': 'Введите правильный адрес электронной почты и пароль.',
         'inactive': 'This account is inactive.',
