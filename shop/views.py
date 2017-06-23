@@ -19,7 +19,7 @@ class IndexView(TemplateView):
 
 
 class Registration(FormView):
-    template_name = 'signin.html'
+    template_name = 'register.html'
     form_class = RegistrationForm
     success_url = '/'
 
