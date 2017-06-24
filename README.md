@@ -7,6 +7,7 @@ This is the source code repository for the online shop "All Music Stuff". It is 
 
 ## Features:
 * Intuitive Web Design
+* дифференцированный уровень доступа к функционалу сайта для персонала магазина и для пользователей.
 * и т.д.
 
 ## Specifications:
