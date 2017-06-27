@@ -1,0 +1,66 @@
+body {
+  display: grid;
+  grid-template-areas:
+    "a a"
+    "b b"
+    "c d"
+    "e e";
+  grid-template-rows: 80px 70px 1fr 80px;
+  grid-template-columns: 20% 1fr;
+  grid-row-gap: 5px;
+  grid-column-gap: 5px;
+  height: 100vh;
+  }
+
+area1, area2, area3, area4, area5
+  {
+  padding: 1.2em;
+  background: #DCDCDC;
+  }
+
+#header { grid-area: a; }
+#ctalogs { grid-area: b; }
+#subcats { grid-area: c; }
+#itemslist { grid-area: d; }
+#footer { grid-area: e; }
+
+#header ul { text-align: right; }
+#header li { display: inline; padding-left: 50px; }
+#ctalogs li { display: inline; padding-left: 50px; }
+#itemslist ul { display: inline; }
+
+#item
+{
+  display: block;
+  height:154px;
+  width:90%;
+  position: relative;
+  float: none;
+  padding-left:15px;
+  padding-top:15px;
+  padding-right:15px;
+  padding-bottom:15px;
+  margin-left:5px;
+  margin-top:5px;
+  margin-right:5px;
+  margin-bottom:5px;
+  border: 1px solid #000000;
+}
+
+#pict
+{
+  display: inline-block;
+  height:98%;
+  width:14%;
+  position: relative;
+  float: left;
+  padding-left:5px;
+  padding-top:5px;
+  padding-right:5px;
+  padding-bottom:5px;
+  margin-left:5px;
+  margin-top:5px;
+  margin-right:5px;
+  margin-bottom:5px;
+  border: 1px solid #000000;
+}
