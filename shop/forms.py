@@ -1,4 +1,4 @@
-from django.forms import ModelForm, CharField, FilePathField, DecimalField, ModelChoiceField, PasswordInput, TextInput
+from django.forms import ModelForm, CharField, ImageField, DecimalField, ModelChoiceField, PasswordInput, TextInput
 from django.core.exceptions import NON_FIELD_ERRORS
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
@@ -55,16 +55,8 @@ class AddingProductForm(ModelForm):
     description = CharField(max_length=1000, required=False)
 
     FORMATS = '\.jpg|\.jpeg|\.png|\.gif'
-    photo1 = FilePathField(path=settings.MEDIA_ROOT, recursive=True,
-                                 match=FORMATS)
-    photo2 = FilePathField(path=settings.MEDIA_ROOT, recursive=True,
-                                 match=FORMATS, required=False)
-    photo3 = FilePathField(path=settings.MEDIA_ROOT, recursive=True,
-                                 match=FORMATS, required=False)
-    photo4 = FilePathField(path=settings.MEDIA_ROOT, recursive=True,
-                                 match=FORMATS, required=False)
-    photo5 = FilePathField(path=settings.MEDIA_ROOT, recursive=True,
-                                 match=FORMATS, required=False)
+    photo = ImageField()
+
 
     class Meta:
         model = Product

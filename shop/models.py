@@ -73,8 +73,9 @@ class Product(models.Model):
     name = models.CharField(max_length=50, default='')
     manufacturer = models.CharField(max_length=40, default='', blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
-    photo = models.CharField(validators=[validators.int_list_validator(sep=',')],
-                             max_length=300, blank=True)  # список фоток конкретного продукта, т.е.: список id из таблицы Photo
+    # photo = models.CharField(validators=[validators.int_list_validator(sep=',')],
+    #                         max_length=300, blank=True)  # список фоток конкретного продукта, т.е.: список id из таблицы Photo
+    photo = models.ImageField(upload_to='product/', blank=True)
     description = models.TextField(default='', blank=True)
     subcategory = models.ForeignKey(SubCategory)
 
