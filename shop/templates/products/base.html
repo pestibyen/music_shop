@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test index</title>
+    <link href="{%static 'css/simple.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <area1 id="header">
+        <ul>
+            <li >
+                {% if request.user.is_authenticated and user.is_staff %}
+                    <a href="{% url 'addproduct' %}">Добавить товар</a>
+                {% endif %}
+            </li>
+            <li >
+                {% if request.user.is_authenticated == False %}
+                    <a href="{% url 'login' %}">Войти</a>
+                {% else %}
+                    <a href="{% url 'logout' %}">Выйти</a>
+                {% endif %}
+            </li>
+            <li>
+                {% if request.user.is_authenticated == False %}
+                    <a href="{% url 'registration' %}">Регистрация</a>
+                {% else %}
+                    <a>{{ user.first_name }}</a>
+                {% endif %}
+            </li>
+          <li><a href="#">Корзина</a></li>
+      </ul>
+  </area1>
+
+  <area2 id="ctalogs">
+      <ul>
+          {% block catalogs_block %}{% endblock %}
+      </ul>
+  </area2>
+
+  <area3 id="subcats">
+      <h3>
+          {% block subcatalogsname_block %}{% endblock %}
+      </h3>
+      <ul>
+          {% block subcatalogs_block %}{% endblock %}
+      </ul>
+  </area3>
+
+  <area4 id="itemslist">
+            <div> {% block path %}{% endblock path %} </div>
+            {% block prodlist %}{% endblock prodlist %}
+  </area4>
+
+  <area5 id="footer">Footer</area5>
+</body>
