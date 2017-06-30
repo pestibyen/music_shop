@@ -1,0 +1,12 @@
+{% extends "index.html"%}
+    {% block content %}
+        <ul>
+            {% for new in news_list %}
+            <li>
+                <h3>{{new.newsheader}}</h3>
+                <p>{{new.newstext}}</p>
+                <p>{{new.newsdate}}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    {% endblock %}

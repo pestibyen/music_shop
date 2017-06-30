@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^', include('main.urls')),
     url(r'^', include('profiles.urls')),
     url(r'^', include('products.urls')),
+    url(r'^', include('news.urls')),
 ]
