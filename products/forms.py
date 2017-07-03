@@ -13,7 +13,7 @@ class AddingProductForm(ModelForm):
     description = CharField(max_length=1000, required=False, widget=Textarea)
 
     FORMATS = '\.jpg|\.jpeg|\.png|\.gif'
-    photo = ImageField()
+    photo = ImageField(required=False)
 
     class Meta:
         model = Product
