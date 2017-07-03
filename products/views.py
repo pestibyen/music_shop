@@ -1,13 +1,13 @@
 from django.shortcuts import render
-from django.views.generic import ListView
 from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from .forms import AddingProductForm
+from .models import Product
 
 
 class Addproduct(PermissionRequiredMixin, FormView):
     permission_required = 'user.is_staff'
-    template_name = 'staff/addproduct.html'
+    template_name = 'product_add.html'
     form_class = AddingProductForm
     success_url = '/success/'
 
@@ -22,3 +22,7 @@ class Addproduct(PermissionRequiredMixin, FormView):
                                price=price_handler, subcategory=subcategory_handler,
                                description=description_handler, photo=photo_handler)
         return super(Addproduct, self).form_valid(form)
+
+
+def success(request):
+    return render(request, 'success.html')
