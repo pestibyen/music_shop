@@ -3,6 +3,7 @@ from django.views.generic import ListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import News
 
+
 class NewsViewList(ListView):
     template_name = 'news_list.html'
     model = News

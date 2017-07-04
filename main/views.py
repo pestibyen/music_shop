@@ -1,7 +1,7 @@
-from django.shortcuts import render
 from django.views.generic import ListView
 from news.models import News
 from categories.models import Category
+
 
 class IndexView(ListView):
     template_name = 'index.html'
