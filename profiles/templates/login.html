@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-    <h2>Вход в систему</h2>
-    <form action="" method="post">{% csrf_token %}
+{% extends "index.html"%}
+{% load staticfiles %}
+{% block content %}
+    <link href="{% static 'signin.css' %}" rel="stylesheet">
+    <div class="form-signin-heading">
+        <h2>Вход</h2>
+    </div>
+    <form class="form-signin" action="" method="post">{% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Войти" />
     </form>
-</body>
-</html>
+{% endblock %}

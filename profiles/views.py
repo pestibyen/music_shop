@@ -1,12 +1,17 @@
-from django.shortcuts import render
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
+from django.views.generic.detail import DetailView
 from .forms import RegistrationForm, LoginForm
 from django.contrib.auth import login, logout
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
+from categories.models import Category
+from .models import Profile
+from orders.models import Order, OrderItem
+from main.mixins import CategoryViewMixin
 
-class Registration(FormView):
+
+class Registration(FormView, CategoryViewMixin):
     template_name = 'register.html'
     form_class = RegistrationForm
     success_url = '/'
@@ -17,8 +22,12 @@ class Registration(FormView):
         login(self.request, new_user)
         return super(Registration, self).form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super(Registration, self).get_context_data(**kwargs)
+        return context
 
-class LoginFormView(FormView):
+
+class LoginFormView(FormView, CategoryViewMixin):
     form_class = LoginForm
     template_name = 'login.html'
     success_url = '/'
@@ -28,6 +37,10 @@ class LoginFormView(FormView):
         login(self.request, self.user)
         return super(LoginFormView, self).form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super(LoginFormView, self).get_context_data(**kwargs)
+        return context
+
 
 class LogoutView(View):
     def get(self, request):
@@ -35,5 +48,12 @@ class LogoutView(View):
         return HttpResponseRedirect('/')
 
 
-def success(request):
-    return render(request, 'success.html')
+class ProfileView(DetailView, CategoryViewMixin):
+    template_name = 'profile.html'
+    model = Profile
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        context['orderlist'] = Order.objects.filter(user=context['profile'])
+        context['orderitems'] = OrderItem.objects.filter(order__user=context['profile'])
+        return context
