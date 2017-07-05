@@ -1,15 +1,15 @@
-<!DOCTYPE html>
 {% extends "index.html" %}
-{% load staticfiles %}
-{% load static %}
-
-
 {% block content %}
     {% for i in cat_list %}
         <hr>
         <div>
             <div>
-                <p><a href="#"> {{ i.name }} </a></p>
+                {% if subcatalogactive.0.name %}
+                    <p><a href="{% url 'items' catalogactive.0.id subcatalogactive.0.id i.id %}"> {{ i.name }} </a></p>
+                {% else %}
+                    <p><a href="{% url 'items' catalogactive.0.id 0 i.id %}"> {{ i.name }} </a></p>
+                {% endif %}
+
             </div>
 
             <div>

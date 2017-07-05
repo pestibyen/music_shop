@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+{% block content %}
+    <br>
+    <div>
+        <div>
+            <h4><strong>{{ item.0.name }}</strong></h4>
+        </div>
+
+        <div>
+            <p><strong>Производитель:</strong> &nbsp; {{ item.0.manufacturer }}</p>
+        </div>
+
+        <div>
+            <p><strong>Описание:</strong></p>
+            <p>{{ item.0.description }}</p>
+        </div>
+
+        <div>
+            <p><strong>Цена:</strong> &nbsp; {{ item.0.price }} руб <a href="#"> &nbsp; В корзину </a></p>
+        </div>
+    </div>
+
+{% endblock content %}

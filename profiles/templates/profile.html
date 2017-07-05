@@ -1,0 +1,28 @@
+{% extends "index.html"%}
+    {% block content %}
+        <p><strong>Имя пользователя:</strong> {{ object.user.username }}</p>
+        <p><strong>Имя:</strong> {{ object.user.first_name }}</p>
+        <p><strong>Фамилия:</strong> {{ object.user.last_name }}</p>
+        <p><strong>Email:</strong> {{ object.user.email }}</p>
+
+        <table class="table table-bordered">
+            <caption>Заказы</caption>
+            {% for order in orderlist %}
+                <tr class="success">
+                    <th><em>id: </em>{{ order.pk }}</th>
+                    <td>{{ order.orderstartdate }}</td>
+                    <td><em>Status: </em>{{ order.status }}</td>
+                </tr>
+                    {% for item in orderitems %}
+                        {% if item.order == order %}
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.quantity}} шт.</td>
+                            <td>{{ item.product.price }} р.</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+            {% endfor %}
+        </table>
+
+    {% endblock %}

@@ -1,6 +1,6 @@
 {% extends "index.html"%}
 {% load staticfiles %}
-    {% block content %}
+{% block content %}
     <link href="{% static 'signin.css' %}" rel="stylesheet">
     <div class="form-signin-heading">
         <h2>Вход</h2>
@@ -9,4 +9,4 @@
         {{ form.as_p }}
         <input type="submit" value="Войти" />
     </form>
-    {% endblock %}
+{% endblock %}
