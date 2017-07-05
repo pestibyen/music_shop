@@ -3,6 +3,7 @@ from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from .forms import AddingProductForm
 from .models import Product
+from categories.models import Category
 
 
 class Addproduct(PermissionRequiredMixin, FormView):
@@ -22,6 +23,11 @@ class Addproduct(PermissionRequiredMixin, FormView):
                                price=price_handler, subcategory=subcategory_handler,
                                description=description_handler, photo=photo_handler)
         return super(Addproduct, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(Addproduct, self).get_context_data(**kwargs)
+        context['catalogs'] = Category.objects.values('id', 'name')
+        return context
 
 
 def success(request):

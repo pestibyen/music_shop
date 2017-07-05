@@ -4,6 +4,7 @@ from .forms import RegistrationForm, LoginForm
 from django.contrib.auth import login, logout
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
+from categories.models import Category
 
 
 class Registration(FormView):
@@ -17,6 +18,11 @@ class Registration(FormView):
         login(self.request, new_user)
         return super(Registration, self).form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super(Registration, self).get_context_data(**kwargs)
+        context['catalogs'] = Category.objects.values('id', 'name')
+        return context
+
 
 class LoginFormView(FormView):
     form_class = LoginForm
@@ -27,6 +33,11 @@ class LoginFormView(FormView):
         self.user = form.get_user()
         login(self.request, self.user)
         return super(LoginFormView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(LoginFormView, self).get_context_data(**kwargs)
+        context['catalogs'] = Category.objects.values('id', 'name')
+        return context
 
 
 class LogoutView(View):

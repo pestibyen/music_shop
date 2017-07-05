@@ -1,54 +1,37 @@
 <!DOCTYPE html>
-{% extends "products/base.html" %}
+{% extends "index.html" %}
 {% load staticfiles %}
 {% load static %}
-<link href="{%static 'css/simple.css' %}" rel="stylesheet" type="text/css">
 
 
-{% block catalogs_block %}
-    {% for i in catalogs %}
-        <li><a href="{% url 'catalogs' i.id %}"> {{ i.name }} </a></li>
-    {% endfor %}
-{% endblock catalogs_block %}
-
-{% block subcatalogsname_block %}
+{% block catpath %}
     {{ catalogactive.0.name }}
-{% endblock subcatalogsname_block %}
-
-{% block subcatalogs_block %}
-    {% for i in subcatalogs %}
-        <li><a href="{% url 'subcatalogs' catalogactive.0.id i.id %}"> {{ i.name }} </a></li>
-    {% endfor %}
-{% endblock subcatalogs_block %}
-
-{% block path %}
-    {{ catalogactive.0.name }}
-{% endblock path %}
+{% endblock catpath %}
 
 
-{% block prodlist %}
-    {% for i in cat_list %}
-        <div id="item">
-
-            <div id="pict">
-                <a href="#"><img src="{% static i.photo|first %}" alt="photo" height="142" width="142"></a>
-            </div>
-
-            <div>
-                <p><a href="#"> {{ i.name }} </a></p>
-            </div>
-
-            <div>
-                <p>{{ i.description }}</p>
-            </div>
-
-            <div>
-                <p> {{ i.price }} руб <a href="#"> Add to cart </a></p>
-            </div>
-
-        </div>
-    {% endfor %}
-{% endblock prodlist %}
+{#{% block prodlist %}#}
+{#    {% for i in cat_list %}#}
+{#        <div id="item">#}
+{##}
+{#            <div id="pict">#}
+{#                <a href="#"><img src="{% static i.photo|first %}" alt="photo" height="142" width="142"></a>#}
+{#            </div>#}
+{##}
+{#            <div>#}
+{#                <p><a href="#"> {{ i.name }} </a></p>#}
+{#            </div>#}
+{##}
+{#            <div>#}
+{#                <p>{{ i.description }}</p>#}
+{#            </div>#}
+{##}
+{#            <div>#}
+{#                <p> {{ i.price }} руб <a href="#"> Add to cart </a></p>#}
+{#            </div>#}
+{##}
+{#        </div>#}
+{#    {% endfor %}#}
+{#{% endblock prodlist %}#}
 
 
 
