@@ -8,7 +8,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+{#    <link rel="icon" href="../../favicon.ico">#}
 
     <title>Starter Template for Bootstrap</title>
 
@@ -30,6 +30,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
   </head>
 
   <body>
@@ -45,14 +46,24 @@
           </button>
           <a class="navbar-brand" href="{% url 'index' %}">All Music Shop</a>
         </div>
+
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url 'index' %}">Главная</a></li>
+            <li><a href="{% url 'index' %}">Главная</a></li>
             <li><a href="{% url 'about' %}">О нас</a></li>
-            <li><a href="#catalog">Каталог</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Каталог<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    {% for i in catalogs %}
+                        <li>
+                            <a href="{% url 'catalogs' i.id %}"> {{ i.name }} </a>
+                        </li>
+                    {% endfor %}
+                  </ul>
+            </li>
             <li><a href="{% url 'news' %}">Новости</a></li>
             <li><a href="{% url 'contacts' %}">Контакты</a></li>
           </ul>
+
           <form class="navbar-form navbar-left hidden-sm hidden-md" action="" method="get" role="search">
             <div class="input-group">
                 <input class="form-control" name="query" placeholder="" value="" type="text">
@@ -79,14 +90,31 @@
                 {% endif %}
            </ul>
         </div><!--/.nav-collapse -->
+
       </div>
     </nav>
 
     <div class="banner">
+
         <div class="container" id="content">
-              {% block content %}
-              {% endblock %}
+
+        {% if catalogactive.0.name %}
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                {% block catpath %}{% endblock %}
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                {% for i in subcatalogs %}
+                    <li><a href="#"> {{ i.name }} </a></li>
+                {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+          {% block content %}
+          {% endblock %}
         </div><!-- /.container -->
+
     </div>
 
 
@@ -99,5 +127,6 @@
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 {#    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>#}
+
   </body>
 </html>

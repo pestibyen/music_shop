@@ -14,8 +14,8 @@ class CatalogView(ListView):
         context['subcatalogs'] = SubCategory.objects.values('id', 'name').filter(category_id=self.kwargs.get('catid'))
         subcatalogs_id = SubCategory.objects.values('id').filter(category_id=self.kwargs.get('catid'))
         context['cat_list'] = Product.objects.values('id', 'name', 'price', 'photo', 'description').filter(subcategory_id__in=subcatalogs_id)
-        for i in context['cat_list']:
-            i['photo'] = Photo.objects.filter(id__in=i['photo'].split(','))
+        # for i in context['cat_list']:
+        #     i['photo'] = Photo.objects.filter(id__in=i['photo'].split(','))
         return context
 
 
@@ -30,6 +30,6 @@ class SubCatalogView(ListView):
         context['subcatalogs'] = SubCategory.objects.values('id', 'name').filter(category_id=self.kwargs.get('catid'))
         context['subcatalogactive'] = SubCategory.objects.values('id', 'name').filter(id=self.kwargs.get('subcatid'))
         context['cat_list'] = Product.objects.values('id', 'name', 'price', 'photo', 'description').filter(subcategory_id=self.kwargs.get('subcatid'))
-        for i in context['cat_list']:
-            i['photo'] = Photo.objects.filter(id__in=i['photo'].split(','))
+        # for i in context['cat_list']:
+        #     i['photo'] = Photo.objects.filter(id__in=i['photo'].split(','))
         return context
