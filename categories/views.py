@@ -4,7 +4,7 @@ from .models import Category, SubCategory
 
 
 class CatalogView(ListView):
-    template_name = 'base_catalogs.html'
+    template_name = 'products_list.html'
     model = Product
 
     def get_context_data(self, **kwargs):
@@ -20,7 +20,7 @@ class CatalogView(ListView):
 
 
 class SubCatalogView(ListView):
-    template_name = 'base_subcatalogs.html'
+    template_name = 'products_list.html'
     model = Product
 
     def get_context_data(self, **kwargs):

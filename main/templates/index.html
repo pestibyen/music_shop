@@ -101,15 +101,19 @@
         {% if catalogactive.0.name %}
           <div class="dropdown">
             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                {% block catpath %}{% endblock %}
+                {{ catalogactive.0.name }}
             <span class="caret"></span></button>
             <ul class="dropdown-menu">
                 {% for i in subcatalogs %}
-                    <li><a href="#"> {{ i.name }} </a></li>
+                    <li><a href="{% url 'subcatalogs' catalogactive.0.id i.id %}"> {{ i.name }} </a></li>
                 {% endfor %}
             </ul>
+            {% if subcatalogactive.0.name %}
+                &nbsp; {{ subcatalogactive.0.name }}
+            {% endif %}
           </div>
         {% endif %}
+
 
           {% block content %}
           {% endblock %}

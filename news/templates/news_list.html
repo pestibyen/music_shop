@@ -3,9 +3,9 @@
         <ul>
             {% for new in news_list %}
             <li>
-                <h3>{{new.newsheader}}</h3>
+                <h3><a href="{% url "news_detail" pk=new.pk %}">{{ new.newsheader }}</a></h3>
                 <p>{{new.newstext}}</p>
-                <p>{{new.newsdate}}</p>
+                <em>{{new.newsdate}}</em>
             </li>
             {% endfor %}
         </ul>

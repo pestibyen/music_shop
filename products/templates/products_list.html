@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% extends "index.html" %}
+{% load staticfiles %}
+{% load static %}
+
+
+{% block content %}
+    {% for i in cat_list %}
+        <hr>
+        <div>
+            <div>
+                <p><a href="#"> {{ i.name }} </a></p>
+            </div>
+
+            <div>
+                <p>{{ i.description }}</p>
+            </div>
+
+            <div>
+                <p> {{ i.price }} руб <a href="#"> &nbsp; Add to cart </a></p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}
+
+
+
