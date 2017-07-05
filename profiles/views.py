@@ -1,13 +1,16 @@
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
+from django.views.generic.detail import DetailView
 from .forms import RegistrationForm, LoginForm
 from django.contrib.auth import login, logout
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from categories.models import Category
+from .models import Profile
+from main.mixins import CategoryViewMixin
 
 
-class Registration(FormView):
+class Registration(FormView, CategoryViewMixin):
     template_name = 'register.html'
     form_class = RegistrationForm
     success_url = '/'
@@ -20,11 +23,10 @@ class Registration(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(Registration, self).get_context_data(**kwargs)
-        context['catalogs'] = Category.objects.values('id', 'name')
         return context
 
 
-class LoginFormView(FormView):
+class LoginFormView(FormView, CategoryViewMixin):
     form_class = LoginForm
     template_name = 'login.html'
     success_url = '/'
@@ -36,7 +38,6 @@ class LoginFormView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(LoginFormView, self).get_context_data(**kwargs)
-        context['catalogs'] = Category.objects.values('id', 'name')
         return context
 
 
@@ -44,3 +45,12 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return HttpResponseRedirect('/')
+
+
+class ProfileView(DetailView, CategoryViewMixin):
+    template_name = 'profile.html'
+    model = Profile
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        return context

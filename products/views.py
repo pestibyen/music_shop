@@ -4,9 +4,10 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from .forms import AddingProductForm
 from .models import Product
 from categories.models import Category
+from main.mixins import CategoryViewMixin
 
 
-class Addproduct(PermissionRequiredMixin, FormView):
+class Addproduct(PermissionRequiredMixin, FormView, CategoryViewMixin):
     permission_required = 'user.is_staff'
     template_name = 'product_add.html'
     form_class = AddingProductForm
@@ -26,7 +27,6 @@ class Addproduct(PermissionRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super(Addproduct, self).get_context_data(**kwargs)
-        context['catalogs'] = Category.objects.values('id', 'name')
         return context
 
 
