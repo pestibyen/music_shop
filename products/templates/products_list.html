@@ -5,9 +5,9 @@
         <div>
             <div>
                 {% if subcatalogactive.0.name %}
-                    <p><a href="{% url 'items' catalogactive.0.id subcatalogactive.0.id i.id %}"> {{ i.name }} </a></p>
+                    <p><a href="{% url 'items' catalogactive.0.id subcatalogactive.0.id i.id %}"> <strong>{{ i.name }}</strong> </a></p>
                 {% else %}
-                    <p><a href="{% url 'items' catalogactive.0.id 0 i.id %}"> {{ i.name }} </a></p>
+                    <p><a href="{% url 'items' catalogactive.0.id 0 i.id %}"> <strong>{{ i.name }}</strong> </a></p>
                 {% endif %}
 
             </div>
@@ -17,7 +17,32 @@
             </div>
 
             <div>
-                <p> {{ i.price }} руб <a href="#"> &nbsp; Add to cart </a></p>
+                <div>
+                  <strong>Цена:</strong> &nbsp; {{ i.price }} руб &nbsp;
+                  <a href="#" data-toggle="modal" data-target="#myModal"> В корзину </a>
+                  <!-- Modal -->
+                  <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Просим понять и простить</h4>
+                        </div>
+                        <div class="modal-body">
+                          <p>К великому сожалению данный товар отсутствует на складе.</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+{#                <p> {{ i.price }} руб <a href="#"> &nbsp; Add to cart </a></p>#}
+
             </div>
         </div>
     {% endfor %}
