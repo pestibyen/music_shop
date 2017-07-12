@@ -88,6 +88,9 @@
                    <li><a>|</a></li>
                    <li><a href="{% url 'addproduct' %}">Добавить товар</a></li>
                {% endif %}
+                   <li title="Корзина">
+                       <a href="{% url 'cart' %}"> {{ request.session.cart|length }} &nbsp; <img src="{% static 'images/cart.png' %}" alt="cart"/></a>
+                   </li>
            </ul>
         </div><!--/.nav-collapse -->
 

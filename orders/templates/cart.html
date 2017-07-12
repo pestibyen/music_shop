@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+{% block content %}
+    <h2>Корзина</h2>
+    <br>
+          <div class="table-responsive">
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th><strong>Товар</strong></th>
+                          <th><strong>Цена за ед.</strong></th>
+                          <th><strong>Кол-во</strong></th>
+                          <th><strong>Итого</strong></th>
+                          <th></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                  {% for n in cart|dictsort:'itemname' %}
+                        <tr>
+                            <td><a href="{% url 'items' n.catalog n.subcatalog n.id %}"> <strong>{{ n.itemname }}</strong> </a></td>
+                            <td>{{ n.itemprice }} руб.</td>
+                            <td>
+                                <a href="{% url 'minus' n.id -1 %}"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAAsSAAALEgHS3X78AAAAzElEQVQoz53SMYrFIBAG4FklY5FDBNIkIbcIFrlJQAvxlDnAjLdIYRWYyi12yQbe28Xs14jw/wo6UG5SSjHGcRyNMcaYaZpijCmlewa+FhHx3iul4IVSatu28zx/CiJirYU/LcsiIt8F5xxU8N6XUoCZtdY1Ba01M2tE3Pe9plBKQUSdcz6OA+rknAER72e8dQUQUcETiKj6vr/2H7+4Al3XqXVd62+w1gIR1T8rET34OOfcf0fj8fBdmDmEMAxD0zRt287zHEIgonvmE/zEyBHP0KeBAAAAAElFTkSuQmCC" alt="minus"/></a>
+                                &nbsp;{{ n.itemquant }}&nbsp;
+                                <a href="{% url 'plus' n.id 1 %}"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAAsSAAALEgHS3X78AAAA0klEQVQoz52SQaqEMAyGMym2Cw8huDHiLaQLbyK0i9L79FZtryJkUZzF8/l84zDofJsQ/j/8kATWAzln7z0RKaWUUn3fe+9zzkcP/BRmttYiIpxAxHmel2X5G2BmrTV8ZBxHZt4GjDFwAWvtuq6QUhJCvGhb+n+EECklDCGUUq4klFJCCEBEZ+1tAgAQEUgpX3xndoOUEuEOUkps23bvH7+8bQGgaRqcpul6gtYaYozX1xpjvHE4Y8y3r3H7+XZSSs65ruuqqqrrehgG51yM8eh5Aq5T1qH8LNAmAAAAAElFTkSuQmCC" alt="plus"/></a>
+                            </td>
+                            <td>{{ n.itogo }} руб.</td>
+                            <td>
+                                <a href="{% url 'del' n.id %}"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAAsSAAALEgHS3X78AAAA+ElEQVQoz52SMY6FIBBAJ6BQeA4jhluYfxcTLJBYyZVIvISFBwCOQWtCA1u4+WvYZPPd18BM3sAEBvIN771SijFGKaWU9n2vlPLe3x24lhjjNE0IIfgFQmgcx/M8fwpijK/XC/5kGIYY43eBEAI+YJqmnDM45zDGV8oYo7W+S1prY8y1xxg75zAh5DiOK9W27bIsVVXt+37Zy7Js23aFOWdCCDDGiiNDCOu6rusaQiguZIwBIaToVWudUkopFTYAEEIQPOFxS5xzmOe5sN9SEQKAlBKstZ8/q7X2wccJIf47Go+H741zTkrZdV1d103TcM6llNbau/MFfe7tTuqouiUAAAAASUVORK5CYII=" alt="minus"/></a>
+                            </td>
+                        </tr>
+                  {% endfor %}
+                  </tbody>
+                  <tfoot>
+                      <tr>
+                          <td></td>
+                          <td></td>
+                          <th class="text-center" colspan="2"><h4>Итоговая стоимость &nbsp;<strong>{{ cart_itogo }}</strong> руб.</h4></th>
+                      </tr>
+                  </tfoot>
+              </table>
+          </div>
+{% endblock content %}

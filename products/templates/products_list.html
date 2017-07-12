@@ -19,30 +19,8 @@
             <div>
                 <div>
                   <strong>Цена:</strong> &nbsp; {{ i.price }} руб &nbsp;
-                  <a href="#" data-toggle="modal" data-target="#myModal"> В корзину </a>
-                  <!-- Modal -->
-                  <div class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog">
-                      <!-- Modal content-->
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">Просим понять и простить</h4>
-                        </div>
-                        <div class="modal-body">
-                          <p>К великому сожалению данный товар отсутствует на складе.</p>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-
+                  <a href="{% url 'addtocart' i.id 1 %}">В корзину</a>
                 </div>
-{#                <p> {{ i.price }} руб <a href="#"> &nbsp; Add to cart </a></p>#}
-
             </div>
         </div>
     {% endfor %}

@@ -1,14 +1,20 @@
 #content {
     padding-top: 60px;
+    padding-left: 60px;
+}
+@media only screen and (max-width: 1600px) {
+    #content {
+        padding-right: 150px;
+        padding-left: 110px;
+    }
 }
 .starter-template {
     padding: 40px 15px;
     text-align: center;
 }
 .banner{
-    background: url(images/background.jpg) no-repeat ;
-    background-size: cover;
-    width:100%;
-    min-height: 660px;
+    background: url(images/background1.jpg) repeat-y;
+    background-size: 100% auto;
+    min-height: 1210px;
     position: relative;
 }

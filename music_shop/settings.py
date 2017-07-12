@@ -147,3 +147,5 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'products/media')
 LOGIN_URL = '/login/'
+
+SESSION_SAVE_EVERY_REQUEST = True

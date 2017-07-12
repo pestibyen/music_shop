@@ -12,7 +12,7 @@ class Addproduct(PermissionRequiredMixin, FormView, CategoryViewMixin):
     permission_required = 'user.is_staff'
     template_name = 'product_add.html'
     form_class = AddingProductForm
-    success_url = '/success/'
+    success_url = '/'
 
     def form_valid(self, form):
         name_handler = form.cleaned_data['name']
