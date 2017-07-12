@@ -13,21 +13,22 @@ class Cart(ListView, CategoryViewMixin):
 
     def get_context_data(self, **kwargs):
         context = super(Cart, self).get_context_data(**kwargs)
-        context['cart'] = []
-        for i in list(dict.fromkeys(self.request.session['cart'].keys())):
-            item = {}
-            item['id'] = i
-            item['subcatalog'] = Product.objects.values('subcategory_id').filter(id=i)[0]['subcategory_id']
-            item['catalog'] = SubCategory.objects.values('category_id').filter(id=item['subcatalog'])[0]['category_id']
-            item['itemquant'] = self.request.session['cart'][i]
-            item['itemname'] = Product.objects.values('name').filter(id=i)[0]['name']
-            item['itemprice'] = Product.objects.values('price').filter(id=i)[0]['price']
-            item['itogo'] = item['itemprice'] * item['itemquant']
-            context['cart'].append(item)
-        summa= 0
-        for i in context['cart']:
-            summa = summa + i['itogo']
-        context['cart_itogo'] = summa
+        if 'cart' in self.request.session:
+            context['cart'] = []
+            for i in list(dict.fromkeys(self.request.session['cart'].keys())):
+                item = {}
+                item['id'] = i
+                item['subcatalog'] = Product.objects.values('subcategory_id').filter(id=i)[0]['subcategory_id']
+                item['catalog'] = SubCategory.objects.values('category_id').filter(id=item['subcatalog'])[0]['category_id']
+                item['itemquant'] = self.request.session['cart'][i]
+                item['itemname'] = Product.objects.values('name').filter(id=i)[0]['name']
+                item['itemprice'] = Product.objects.values('price').filter(id=i)[0]['price']
+                item['itogo'] = item['itemprice'] * item['itemquant']
+                context['cart'].append(item)
+            summa= 0
+            for i in context['cart']:
+                summa = summa + i['itogo']
+            context['cart_itogo'] = summa
         return context
 
 
