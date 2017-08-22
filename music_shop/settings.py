@@ -25,7 +25,7 @@ SECRET_KEY = 'sx&dz#h5lhun392hcqit#m5e8!=@qb3_a=!1n@h65kxd6yl+kl'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['music.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -80,28 +80,12 @@ WSGI_APPLICATION = 'music_shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'music_shop_db',
-            'USER': 'admin',
-            'PASSWORD': '1qaz2wsx',
-            'HOST': 'localhost',
-            'PORT': '5432'
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'music_shop_db',
-            'USER': 'django_admin',
-            'PASSWORD': 'qzpm123a',
-            'HOST': 'andrejch.by',
-            'PORT': '5432'
-        }
-    }
+}
 
 
 # Password validation
@@ -141,6 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
